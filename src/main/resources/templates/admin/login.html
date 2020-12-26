@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Blog | Login</title>
+	
+	<!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" th:href="@{http://placehold.it/64.png/000/fff}">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" th:href="@{http://placehold.it/144.png/000/fff}">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" th:href="@{http://placehold.it/114.png/000/fff}">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" th:href="@{http://placehold.it/72.png/000/fff}">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" th:href="@{http://placehold.it/57.png/000/fff}">
+
+	<!-- Styles -->
+    <link th:href="@{assets/fontAwesome/css/fontawesome-all.min.css}" rel="stylesheet">
+    <link th:href="@{assets/css/lib/themify-icons.css}" rel="stylesheet">
+    <link th:href="@{assets/css/lib/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{assets/css/lib/nixon.css}" rel="stylesheet">
+    <link th:href="@{assets/css/style.css}" rel="stylesheet">
+	<link th:href="@{assets/css/lib/sweetalert/sweetalert.css}" rel="stylesheet">
+</head>
+<style>
+	/*调整表单左右边距，使sweetAlert弹窗能对齐 @media: 浏览器宽度大于1200px时启用*/
+	@media (min-width: 1200px){
+		.col-lg-offset-3 {
+			margin-left: 23.6%;
+		}
+	}
+
+</style>
+
+<body class="bg-primary">
+
+	<div class="Nixon-login">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-lg-offset-3">
+					<div class="login-content">
+						<div class="login-logo">
+							<a href="index.html"><span>Chun</span></a>
+						</div>
+						<div class="login-form">
+							<h4>Administratior Login</h4>
+							<form id="loginForm" action="#" method="post" onsubmit="return checkForm()">
+								<div class="form-group">
+									<label>Account</label>
+									<input id="account" name="account" type="text" class="form-control" placeholder="Account">
+								</div>
+								<div class="form-group">
+									<label>Password</label>
+									<input id="password" name="password" type="password" class="form-control" placeholder="Password">
+								</div>
+
+								<button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script th:src="@{assets/js/lib/data-table/jquery-1.12.4.js}"></script>
+<!--	<script th:src="@{assets/js/lib/jquery.min.js}"></script>-->
+<script th:src="@{assets/js/lib/jquery.serializejson.js}"></script>
+<script th:src="@{assets/js/lib/sweetalert/sweetalert.min.js}"></script>
+<!--JS-->
+<script>
+	function checkForm() {
+
+		console.log(JSON.parse(JSON.stringify($('#loginForm').serializeJSON())));
+
+		$.ajax({
+			type: "POST",
+			url: "/login",
+			data: JSON.stringify($('#loginForm').serializeJSON()),
+			dataType: "json",
+			contentType:"application/json",
+			success: function (result) {
+
+				if (result.account === 'pangchun'){
+
+					swal({
+								title: "验证成功 !!",
+								text: "欢迎您 " + result.account + " !!",
+								type: "success",
+								button: true
+							},
+							function(value){
+								if (value) {
+									window.location.href="/admin/driver";
+								}
+							});
+
+				} else {
+
+					//sweetAlert()与swal()作用相同
+					sweetAlert("验证失败", "非法用户 " + result.account + " !!", "error");
+				}
+			}
+
+		});
+		return false;
+	}
+</script>
+
+</body>
+
+</html>

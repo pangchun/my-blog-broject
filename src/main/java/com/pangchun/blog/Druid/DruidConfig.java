@@ -11,13 +11,19 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 
+/**
+ * Druid数据连接池相关配置
+ *
+ * @author : pangchun
+ * @date : 2020-12-25 16:20
+ * @description : 集成了后台监控的连接池的后台监控相关配置
+ * @version : v1.0
+ */
 @Configuration
 public class DruidConfig {
 
     /**
      * 注入配置文件配置的数据源属性
-     *
-     * @return
      */
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
@@ -27,8 +33,6 @@ public class DruidConfig {
 
     /**
      * 主要实现web监控的配置处理
-     *
-     * @return
      */
     @Bean
     public ServletRegistrationBean druidServlet() {
@@ -50,8 +54,6 @@ public class DruidConfig {
 
     /**
      * 监控请求
-     *
-     * @return
      */
     @Bean
     public FilterRegistrationBean filterRegistrationBean(){
