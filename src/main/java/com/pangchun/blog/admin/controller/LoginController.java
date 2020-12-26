@@ -8,15 +8,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 登录博客后台
+ *
+ * @author : pangchun
+ * @date : 2020-12-26 16:18
+ * @description : 博客登录API
+ * @version : v1.0
+ */
 @Controller
 @RequestMapping
 @Slf4j
 public class LoginController {
 
-    @GetMapping({"/admin"})
-    public String goToLoginPage() {return "admin/login";}
-
-    @PostMapping(value = {"/login"})
+    @PostMapping("/login")
     @ResponseBody
     public Map<String,Object> loginCheck(@RequestBody LoginForm loginForm) {
 

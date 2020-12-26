@@ -1,4 +1,4 @@
-package com.pangchun.blog.Druid;
+package com.pangchun.blog.druid;
 import javax.sql.DataSource;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
