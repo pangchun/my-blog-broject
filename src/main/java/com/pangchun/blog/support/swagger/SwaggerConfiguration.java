@@ -1,4 +1,4 @@
-package com.pangchun.blog.swagger;
+package com.pangchun.blog.support.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

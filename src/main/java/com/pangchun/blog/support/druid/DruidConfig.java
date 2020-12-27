@@ -1,4 +1,4 @@
-package com.pangchun.blog.druid;
+package com.pangchun.blog.support.druid;
 import javax.sql.DataSource;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -16,7 +16,7 @@ import com.alibaba.druid.support.http.WebStatFilter;
  *
  * @author : pangchun
  * @date : 2020-12-25 16:20
- * @description : 集成了后台监控的连接池的后台监控相关配置
+ * @description : 集成了后台监控的连接池的后台监控相关配置,访问地址：http://localhost:8081/druid/login.html
  * @version : v1.0
  */
 @Configuration
