@@ -76,7 +76,7 @@
 <script>
 	function checkForm() {
 
-		console.log(JSON.parse(JSON.stringify($('#loginForm').serializeJSON())));
+		//console.log(JSON.parse(JSON.stringify($('#loginForm').serializeJSON())));
 
 		$.ajax({
 			type: "POST",
@@ -86,11 +86,13 @@
 			contentType:"application/json",
 			success: function (result) {
 
-				if (result.account === 'pangchun'){
+				console.log(result);
+
+				if (result.code === 200 && result.message === "Success"){
 
 					swal({
 								title: "验证成功 !!",
-								text: "欢迎您 " + result.account + " !!",
+								text: "欢迎您 " + result.data.account + " !!",
 								type: "success",
 								button: true
 							},
@@ -103,7 +105,7 @@
 				} else {
 
 					//sweetAlert()与swal()作用相同
-					sweetAlert("验证失败", "非法用户 " + result.account + " !!", "error");
+					sweetAlert("验证失败", result.message + " !!", "error");
 				}
 			}
 
