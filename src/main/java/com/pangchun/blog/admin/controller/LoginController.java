@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * 登录博客后台
@@ -32,7 +33,7 @@ public class LoginController {
     @ApiOperation("用户登录-登入")
     @PostMapping("/login")
     @ResponseBody
-    public ResponseResult<User> loginCheck(@RequestBody LoginFormDTO loginFormDTO) {
+    public ResponseResult<User> loginCheck(@RequestBody LoginFormDTO loginFormDTO) throws NoSuchAlgorithmException {
 
         log.info(loginFormDTO.toString());
 
