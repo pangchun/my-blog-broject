@@ -1,6 +1,6 @@
 package com.pangchun.blog.admin.controller;
 
-import com.pangchun.blog.admin.entity.LoginForm;
+import com.pangchun.blog.admin.dto.LoginFormDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +23,12 @@ public class LoginController {
 
     @PostMapping("/login")
     @ResponseBody
-    public Map<String,Object> loginCheck(@RequestBody LoginForm loginForm) {
+    public Map<String,Object> loginCheck(@RequestBody LoginFormDTO loginFormDTO) {
 
-        log.info(loginForm.toString());
+        log.info(loginFormDTO.toString());
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("account",loginForm.getAccount());
+        Map<String, Object> map = new HashMap<>(1);
+        map.put("account",loginFormDTO.getAccount());
 
         return map;
     }
