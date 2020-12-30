@@ -27,7 +27,8 @@ public class LoginService {
     @Resource
     private LoginRepository loginRepository;
 
-    //TODO: 算法对密码加密， 以后改用springSecurity加密
+    //TODO: 目前使用SHA1算法对密码加密， 以后改用springSecurity加密
+
     /**
      * 用户登录-登入
      *
