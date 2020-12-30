@@ -1,0 +1,61 @@
+/*
+
+Login 
+-------------------------------------------------*/
+.login-logo {
+  text-align: center;
+  margin-bottom: 15px; }
+  .login-logo span {
+    color: #fff;
+    font-size: 24px; }
+  .login-logo img {
+    height: 75px; }
+
+.login-content {
+  margin: 100px 0; }
+
+.login-form {
+  background: #fff;
+  padding: 30px 30px 20px;
+  border-radius: 2px; }
+  .login-form h4 {
+    color: #878787;
+    text-align: center;
+    margin-bottom: 50px; }
+  .login-form .checkbox {
+    color: #878787; }
+    .login-form .checkbox label {
+      text-transform: none; }
+  .login-form .btn {
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 15px;
+    border: 0px; }
+  .login-form label {
+    color: #878787;
+    text-transform: uppercase; }
+    .login-form label a {
+      color: #00838F; }
+
+.social-login-content {
+  margin: 0px -30px;
+  border-top: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+  padding: 30px 0px;
+  background: #fcfcfc; }
+
+.social-button {
+  padding: 0 30px; }
+  .social-button i {
+    padding: 19px; }
+
+.register-link a {
+  color: #00838F; }
+
+/*调整表单左右边距，使sweetAlert弹窗能对齐 @media: 浏览器宽度大于1200px时启用*/
+@media (min-width: 1200px){
+	.offset-lg-3 {
+		margin-left: 23.56%;
+	}
+}
