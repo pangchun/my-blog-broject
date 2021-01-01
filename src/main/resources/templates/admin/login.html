@@ -1,69 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
 	<title>Blog | Login</title>
-
 	<!-- ==========Favicon========== -->
 	<link th:href="@{/assets/commons/favicon.ico}" rel="icon" />
-
 	<!-- ==========CSS========== -->
-	<!-- bootstrap -->
 	<link th:href="@{/assets/bootstrap-4.5-dist/css/bootstrap.css}" rel="stylesheet" />
-	<!-- login -->
 	<link th:href="@{/assets/login/login.css}" rel="stylesheet" />
-	<!-- sweetalert -->
 	<link rel="stylesheet" type="text/css" th:href="@{/assets/sweetalert-1.x/sweetalert.css}"/>
-
 </head>
-
 <body class="bg-primary">
-
-<div class="container">
-	<div class="row">
-		<div class="col-lg-6 offset-lg-3">
-			<div class="login-content">
-				<div class="login-logo">
-					<a href="#"><span>Chun</span></a>
-				</div>
-				<div class="login-form">
-					<h4>Administratior</h4>
-					<form id="loginForm" action="#" method="post" onsubmit="return checkForm()">
-						<div class="form-group">
-							<label>Account</label>
-							<input id="account" name="account" type="text" class="form-control" placeholder="account">
-						</div>
-						<div class="form-group">
-							<label>Password</label>
-							<input id="password" name="password" type="password" class="form-control" placeholder="password">
-						</div>
-
-						<button type="submit" class="btn btn-primary">Sign in</button>
-					</form>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 offset-lg-3">
+				<div class="login-content">
+					<div class="login-logo">
+						<a href="#">
+							<span>Chun</span>
+						</a>
+					</div>
+					<div class="login-form">
+						<h4>Administratior</h4>
+						<form id="loginForm" action="#" method="post" onsubmit="return checkForm()">
+							<div class="form-group">
+								<label>Account</label>
+								<input id="account" name="account" type="text" class="form-control" placeholder="account">
+							</div>
+							<div class="form-group">
+								<label>Password</label>
+								<input id="password" name="password" type="password" class="form-control" placeholder="password">
+							</div>
+							<button type="submit" class="btn btn-primary">Sign in</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 <!-- ==========JS========== -->
-<!-- jquery -->
 <script th:src="@{/assets/jquery-3.5.1/jquery-3.5.1.js}" type="text/javascript" charset="utf-8"></script>
-<!-- sweetalert -->
 <script th:src="@{/assets/sweetalert-1.x/sweetalert.min.js}" type="text/javascript" charset="utf-8"></script>
-<!-- serializejson -->
 <script th:src="@{/assets/jquery-serializejson/jquery.serializejson.js}" type="text/javascript" charset="utf-8"></script>
-
 <!-- ajax提交表单 -->
 <script>
 	function checkForm() {
-
 		//console.log(JSON.parse(JSON.stringify($('#loginForm').serializeJSON())));
-
 		$.ajax({
 			type: "POST",
 			url: "/login",
@@ -71,11 +56,8 @@
 			dataType: "json",
 			contentType:"application/json",
 			success: function (result) {
-
 				console.log(result);
-
 				if (result.code === 200 && result.message === "Success"){
-
 					swal({
 								title: "验证成功 !!",
 								text: "欢迎您 " + result.data.account + " !!",
@@ -87,18 +69,14 @@
 									window.location.href="/admin/dashboard";
 								}
 							});
-
 				} else {
-
 					//sweetAlert()与swal()作用相同
 					sweetAlert("验证失败", result.message + " !!", "error");
 				}
 			}
-
 		});
 		return false;
 	}
 </script>
 </body>
-
 </html>
