@@ -27,13 +27,13 @@
         <div class="sidebar-sticky pt-3">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" th:class="${activeUri}=='dashboard.html'?'nav-link active':'nav-link'">
+                    <a class="nav-link" th:href="@{/admin/dashboard}" th:class="${activeUri}=='dashboard.html'?'nav-link active':'nav-link'">
                         <span data-feather="home"></span>
                         Dashboard <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" th:class="${activeUri}=='editArticles.html'?'nav-link active':'nav-link'">
+                    <a class="nav-link" th:href="@{/admin/editArticles}" th:class="${activeUri}=='editArticles.html'?'nav-link active':'nav-link'">
                         <span data-feather="edit"></span>
                         Edit
                     </a>

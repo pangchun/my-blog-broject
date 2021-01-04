@@ -22,4 +22,11 @@ class BlogApplicationTests {
         System.out.println(admin);
     }
 
+    @Test
+    void contextLoads2() throws NoSuchAlgorithmException {
+
+        System.out.println(System.getProperty("user.dir"));
+        //输出： F:\github_repositories\my-blog-project\my-blog-broject
+    }
+
 }

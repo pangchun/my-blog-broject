@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Blog | EditArticles</title>
         <!-- ==========Favicon========== -->
-        <link href="assets/commons/favicon.ico" rel="icon" />
+        <link th:href="@{/assets/commons/favicon.ico}" rel="icon" />
         <!-- ==========CSS========== -->
         <link rel="stylesheet" th:href="@{/assets/Editor/examples/css/style.css}" />
         <link rel="stylesheet" th:href="@{/assets/Editor/css/editormd.css}" />
@@ -109,7 +109,7 @@
                     //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
                     imageUpload : true,
                     imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-                    imageUploadURL : "./php/upload.php",
+                    imageUploadURL : "/article/img-upload",
                     onload : function() {
                         //图片上传后可以做一些事情
                         console.log('onload', this);
