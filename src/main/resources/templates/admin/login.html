@@ -57,7 +57,7 @@
 			contentType:"application/json",
 			success: function (result) {
 				console.log(result);
-				if (result.code === 200 && result.message === "Success"){
+				if (result.code === 200 && result.message === "Success") {
 					swal({
 								title: "验证成功 !!",
 								text: "欢迎您 " + result.data.account + " !!",

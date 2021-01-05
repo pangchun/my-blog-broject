@@ -9,6 +9,7 @@
         <!-- ==========CSS========== -->
         <link rel="stylesheet" th:href="@{/assets/Editor/examples/css/style.css}" />
         <link rel="stylesheet" th:href="@{/assets/Editor/css/editormd.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/assets/sweetalert-1.x/sweetalert.css}"/>
         <link th:href="@{/assets/bootstrap-4.5-dist/css/bootstrap.css}" rel="stylesheet">
         <link th:href="@{/assets/dashboard/dashboard.css}" rel="stylesheet">
     </head>
@@ -28,8 +29,8 @@
                         <h1 class="h2">编辑一篇新文章</h1>
                         <div class="btn-toolbar mb-2 mb-md-0">
                             <div class="btn-group mr-2">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">存为草稿</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">立即发布</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="editArticles.doSave();">存为草稿</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="editArticles.doSubmit();">立即发布</button>
                             </div>
                         </div>
                     </div>
@@ -41,13 +42,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">标题</span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="聊聊JAVA的哪些事儿">
+                                <input id="title" type="text" class="form-control" placeholder="聊聊JAVA的哪些事儿">
                             </div>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">描述</span>
                                 </div>
-                                <textarea class="form-control" placeholder="因为热门。这是对于为什么要学习Java的非常热门的一种回答，当然，可能没那么直白。也许在很多人眼里，2020年还问为什么要学习Java，这个问题本身就很奇怪。"></textarea>
+                                <textarea id="description" class="form-control" placeholder="因为热门。这是对于为什么要学习Java的非常热门的一种回答，当然，可能没那么直白。也许在很多人眼里，2020年还问为什么要学习Java，这个问题本身就很奇怪。"></textarea>
                             </div>
 
                             <header>
@@ -55,7 +56,7 @@
                                 <!--<h1>&nbsp;</h1>-->
                             </header>
                             <div id="test-editormd">
-                        <textarea style="display:none;">[TOC]
+                        <textarea id="content" style="display:none;">[TOC]
 #请开始编辑文章吧...
 </textarea>
                             </div>
@@ -66,7 +67,10 @@
         </div>
 
         <!-- ==========JS========== -->
+        <!-- ==========JS========== -->
         <script th:src="@{/assets/jquery-3.5.1/jquery-3.5.1.js}"></script>
+        <script th:src="@{/assets/sweetalert-1.x/sweetalert.min.js}"></script>
+        <script th:src="@{/assets/jquery-serializejson/jquery.serializejson.js}"></script>
         <script th:src="@{/assets/bootstrap-4.5-dist/js/bootstrap.js}"></script>
         <script th:src="@{/assets/commons/js/feather-4.9.0.min.js}"></script>
         <script th:src="@{/assets/commons/js/Chart-2.7.3.min.js}"></script>
@@ -121,9 +125,77 @@
                         //this.width("100%");
                         //this.height(480);
                         //this.resize("100%", 640);
+
                     }
                 });
             });
+
+            //TODO: 保存草稿
+            <!-- 发布文章|存为草稿 -->
+            let editArticles = {
+                //立即发布
+                doSubmit: function () {
+                    if (editArticles.doCheck()) {
+                        let title = $("#title").val();
+                        let description = $("#description").val();
+                        let content = $("#content").val();
+                        $.ajax({
+                            type: "POST",
+                            url: "/article/publish",
+                            //注意：title、description、content都是对象，要使用JSON.stringify转为JSON字符串；
+                            data: JSON.stringify({'title': title, 'description': description, 'content': content}),
+                            dataType: "json",
+                            contentType: "application/json",
+                            success: function (result) {
+                                if (result.code === 200 && result.message === "Success") {
+                                    swal("提示 !!", "您的文章已发布 !!", "success");
+                                    swal({
+                                            title: "提示 !!",
+                                            text: "您的文章已发布 !!",
+                                            type: "success",
+                                            button: true
+                                        },
+                                        function(value){
+                                            if (value) {
+                                                //TODO: 清除输入框
+                                            }
+                                        });
+                                } else {
+                                    sweetAlert("提示", result.message + " !!", "error");
+                                }
+                            }
+                        });
+                    }
+                },
+
+                //保存草稿
+                doSave: function() {
+                    sweetAlert("提示", "保存草稿功能暂未开放，敬请期待 !!", "warning");
+                    return false;
+                },
+
+                //参数校验
+                doCheck: function() {
+                    let title = $("#title").val();
+                    let description = $("#description").val();
+                    let content = $("#content").val();
+                    if (typeof(title) == undefined || title == null || title == "" ) {
+                        sweetAlert("警告","请填写文章标题!!", "error");
+                        return false;
+                    }
+                    if (typeof(description) == undefined || description == null || description == "" ) {
+                        sweetAlert("警告","请填写文章描述!!", "error");
+                        return false;
+                    }
+                    if(typeof (content) == undefined || content == null || content == "") {
+                        sweetAlert("警告","请填写文章内容!!", "error");
+                        return false;
+                    }
+                    return true;
+                }
+            }
+
         </script>
+
     </body>
 </html>
