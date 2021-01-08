@@ -1,5 +1,6 @@
 package com.pangchun.blog.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Date;
 
 //TODO: 继承文章状态，完成保存草稿功能；
 
@@ -38,6 +40,11 @@ public class Article {
     /** 文章描述 */
     @ApiModelProperty("文章描述")
     private String description;
+
+    /** 发布时间 */
+    @ApiModelProperty("发布时间")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date publishTime;
 
     /** 文章内容 */
     @ApiModelProperty("文章内容")

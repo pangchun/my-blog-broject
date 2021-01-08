@@ -1,14 +1,10 @@
 package com.pangchun.blog.support.config;
 
-import com.pangchun.blog.article.vo.FileUploadVO;
-import org.apache.tomcat.util.net.ApplicationBufferHandler;
+import com.pangchun.blog.admin.article.vo.FileUploadVO;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * webMVC的自定义配置
@@ -30,6 +26,7 @@ public class MvcConfiguration implements WebMvcConfigurer {
         registry.addViewController("/admin").setViewName("admin/login");
         registry.addViewController("/admin/dashboard").setViewName("admin/dashboard");
         registry.addViewController("/admin/editArticles").setViewName("admin/editArticles");
+        registry.addViewController("/home/blog").setViewName("home/blog");
     }
 
     /**

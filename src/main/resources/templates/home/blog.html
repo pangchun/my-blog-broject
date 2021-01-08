@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Blog | Home</title>
+  <!-- ==========Favicon========== -->
+  <link th:href="@{/assets/commons/favicon.ico}" rel="icon" />
+  <!-- ==========CSS========== -->
+  <link rel="stylesheet" th:href="@{/assets/Editor/examples/css/style.css}" />
+  <link rel="stylesheet" th:href="@{/assets/Editor/css/editormd.preview.css}" />
+  <link th:href="@{/assets/bootstrap-4.5-dist/css/bootstrap.css}" rel="stylesheet">
+  <link th:href="@{/assets/blog/blog.css}" rel="stylesheet">
+  <style>
+    .editormd-html-preview {
+      width: 100%;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- top -->
+  <div th:replace="home/fragments/home-frags::top"></div>
+
+  <!-- center -->
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8 blog-main">
+        <h3 class="pb-4 mb-4 font-italic border-bottom">
+          最新文章
+        </h3>
+        <!-- 文章主体 -->
+        <div class="blog-post">
+          <div id="layout">
+            <header>
+              <h1 id="title">我的第一篇Blog</h1>
+              <p class="blog-post-meta"><span id="publish-time">2021-1-5</span> by <a href="#">pangchun</a></p>
+            </header>
+            <div class="btns">
+              <button onclick="location.href='./html-preview-markdown-to-html-custom-toc-container.html';">全屏观看</button>
+            </div>
+            <!--
+            <div id="test-editormd-view">
+              <textarea style="display:none;" name="test-editormd-markdown-doc">###Hello world!</textarea>
+            </div>
+            -->
+            <div id="test-editormd-view2">
+                  <textarea id="append-test" style="display:none;">
+# Editor.md
+
+![](https://pandao.github.io/editor.md/images/logos/editormd-logo-180x180.png)
+
+![](https://img.shields.io/github/stars/pandao/editor.md.svg) ![](https://img.shields.io/github/forks/pandao/editor.md.svg) ![](https://img.shields.io/github/tag/pandao/editor.md.svg) ![](https://img.shields.io/github/release/pandao/editor.md.svg) ![](https://img.shields.io/github/issues/pandao/editor.md.svg) ![](https://img.shields.io/bower/v/editor.md.svg)
+
+**目录 (Table of Contents)**
+
+[TOCM]
+
+[TOC]
+
+# Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+##### Heading 5
+###### Heading 6
+# Heading 1 link [Heading link](https://github.com/pandao/editor.md "Heading link")
+## Heading 2 link [Heading link](https://github.com/pandao/editor.md "Heading link")
+### Heading 3 link [Heading link](https://github.com/pandao/editor.md "Heading link")
+#### Heading 4 link [Heading link](https://github.com/pandao/editor.md "Heading link") Heading link [Heading link](https://github.com/pandao/editor.md "Heading link")
+##### Heading 5 link [Heading link](https://github.com/pandao/editor.md "Heading link")
+###### Heading 6 link [Heading link](https://github.com/pandao/editor.md "Heading link")
+                  </textarea>
+            </div>
+          </div>
+        </div>
+        <!-- 分页 -->
+        <nav class="blog-pagination">
+          <a class="btn btn-outline-primary" href="#">Older</a>
+          <a class="btn btn-outline-secondary" href="#" tabindex="-1" aria-disabled="true">Newer</a>
+        </nav>
+      </div>
+      <aside class="col-md-4 blog-sidebar">
+        <div class="p-4 mb-3 bg-light rounded">
+          <h4 class="font-italic">公告栏</h4>
+          <p class="mb-0">pangchun <em>我的github账户名</em> 一个热学dog.
+            兴趣爱好是篮球、刁青和打王者农药.
+            最近学了springboot、jpa等技术，做这个项目的初衷就是练习使用这些知识.
+            对这个项目有任何疑问和指教都请给我发邮件.
+          </p>
+          <a href="#"><em>pangchun_mail@qq.com</em></a>
+        </div>
+
+        <div class="p-4">
+          <h4 class="font-italic">标签</h4>
+          <ol class="list-unstyled mb-0">
+            <li><a href="#">Java</a></li>
+            <li><a href="#">Spring</a></li>
+            <li><a href="#">SpringBoot</a></li>
+            <li><a href="#">JPA</a></li>
+            <li><a href="#">Linux</a></li>
+            <li><a href="#">Html5</a></li>
+            <li><a href="#">CSS3</a></li>
+            <li><a href="#">JavaScript</a></li>
+            <li><a href="#">Bootstrap</a></li>
+            <li><a href="#">MySQL</a></li>
+          </ol>
+        </div>
+
+        <div class="p-4">
+          <h4 class="font-italic">其他地方</h4>
+          <ol class="list-unstyled">
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">思否</a></li>
+            <li><a href="#">gitee</a></li>
+          </ol>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- footer -->
+  <div th:replace="home/fragments/home-frags::footer"></div>
+
+  <!-- ==========JS========== -->
+  <script th:src="@{/assets/jquery-3.5.1/jquery-3.5.1.js}"></script>
+  <script th:src="@{/assets/bootstrap-4.5-dist/js/bootstrap.js}"></script>
+  <!-- Editor -->
+  <script th:src="@{/assets/Editor/examples/js/jquery.min.js}"></script>
+  <script th:src="@{/assets/Editor/lib/marked.min.js}"></script>
+  <script th:src="@{/assets/Editor/lib/prettify.min.js}"></script>
+  <script th:src="@{/assets/Editor/lib/raphael.min.js}"></script>
+  <script th:src="@{/assets/Editor/lib/underscore.min.js}"></script>
+  <script th:src="@{/assets/Editor/lib/sequence-diagram.min.js}"></script>
+  <script th:src="@{/assets/Editor/lib/flowchart.min.js}"></script>
+  <script th:src="@{/assets/Editor/lib/jquery.flowchart.min.js}"></script>
+  <script th:src="@{/assets/Editor/editormd.js}"></script>
+
+<!--
+
+  <script type="text/javascript">
+    $(function() {
+      var testEditormdView, testEditormdView2;
+
+    /*
+      $.get("/assets/blog/test.md", function(markdown) {
+
+        testEditormdView = editormd.markdownToHTML("test-editormd-view", {
+          markdown        : markdown ,//+ "\r\n" + $("#append-test").text(),
+          //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
+          htmlDecode      : "style,script,iframe",  // you can filter tags decode
+          //toc             : false,
+          tocm            : true,    // Using [TOCM]
+          //tocContainer    : "#custom-toc-container", // 自定义 ToC 容器层
+          //gfm             : false,
+          //tocDropdown     : true,
+          // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
+          emoji           : true,
+          taskList        : true,
+          tex             : true,  // 默认不解析
+          flowChart       : true,  // 默认不解析
+          sequenceDiagram : true,  // 默认不解析
+        });
+      });
+    */
+
+      testEditormdView2 = editormd.markdownToHTML("test-editormd-view2", {
+        htmlDecode      : "style,script,iframe",  // you can filter tags decode
+        //toc             : false,
+        tocm            : true,    // 开启按钮式目录
+        emoji           : true,
+        taskList        : true,
+        tex             : true,  // 默认不解析
+        flowChart       : true,  // 默认不解析
+        sequenceDiagram : true,  // 默认不解析
+      });
+    });
+  </script>
+-->
+
+  <script>
+      /*页面加载完成就获取最新文章*/
+      $(function () {
+          $.ajax({
+              type: "GET",
+              url: "/blog/latest",
+              dataType: "json",
+              contentType:"application/json",
+              success: function (result) {
+                  console.log(result);
+                  $('#title').html(result.data.title);
+                  $('#publish-time').html(result.data.publishTime);
+                  $('#append-test').html(result.data.content);
+
+                  doSome.mdToHtml();
+              }
+          })
+      });
+
+      let doSome = {
+          <!-- 封装一个将md源码渲染到页面的方法 -->
+          mdToHtml: function () {
+              let testEditormdView2;
+              testEditormdView2 = editormd.markdownToHTML("test-editormd-view2", {
+                  htmlDecode      : "style,script,iframe",
+                  //tocm            : true, // 开启按钮式目录
+                  emoji           : true,
+                  taskList        : true,
+                  tex             : true,
+                  flowChart       : true,
+                  sequenceDiagram : true,
+              });
+          }
+      }
+  </script>
+
+
+</body>
+</html>

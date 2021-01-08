@@ -1,14 +1,19 @@
 package com.pangchun.blog;
 
+import com.pangchun.blog.home.blog.repository.BlogRepository;
 import com.pangchun.blog.support.utils.SHAUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import sun.security.rsa.RSASignature;
 
+import javax.annotation.Resource;
 import java.security.NoSuchAlgorithmException;
 
 @SpringBootTest
 class BlogApplicationTests {
+
+    @Resource
+    BlogRepository blogRepository;
 
     /**
      * 测试SHA1算法加密密码
@@ -29,4 +34,9 @@ class BlogApplicationTests {
         //输出： F:\github_repositories\my-blog-project\my-blog-broject
     }
 
+    @Test
+    void contextLoads3() {
+
+        System.out.println(blogRepository.findFirstByOrderByPublishTimeDesc().toString());
+    }
 }
