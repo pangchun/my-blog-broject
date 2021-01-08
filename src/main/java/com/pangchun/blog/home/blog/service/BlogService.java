@@ -7,12 +7,25 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+/**
+ * Blog业务层
+ *
+ * @author : pangchun
+ * @date : 2021-1-07
+ * @description : Blog业务层
+ * @version : v1.0
+ */
 @Service
 public class BlogService {
 
     @Resource
     BlogRepository blogRepository;
 
+    /**
+     * 获取最新文章
+     *
+     * @return
+     */
     public ResponseResult<Article> findLatestArticle() {
 
         //取出最新文章
