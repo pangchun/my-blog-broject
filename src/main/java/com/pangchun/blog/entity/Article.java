@@ -43,7 +43,7 @@ public class Article {
 
     /** 发布时间 */
     @ApiModelProperty("发布时间")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date publishTime;
 
     /** 文章内容 */

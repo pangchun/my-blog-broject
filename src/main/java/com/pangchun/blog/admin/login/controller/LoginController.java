@@ -21,7 +21,7 @@ import java.security.NoSuchAlgorithmException;
  * @description : 博客登录API
  * @version : v1.0
  */
-@Api(tags = "用户登录API")
+@Api(tags = "登录API")
 @Controller
 @RequestMapping
 @Slf4j
@@ -30,7 +30,7 @@ public class LoginController {
     @Resource
     private LoginService loginService;
 
-    @ApiOperation("用户登录-登入")
+    @ApiOperation("登录-登入")
     @PostMapping("/login")
     @ResponseBody
     public ResponseResult<User> loginCheck(@RequestBody LoginFormDTO loginFormDTO) throws NoSuchAlgorithmException {

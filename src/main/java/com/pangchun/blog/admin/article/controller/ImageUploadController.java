@@ -24,13 +24,13 @@ import java.io.IOException;
  * @description : 编辑文章的图片上传
  * @version : v1.0
  */
-@Api(tags = "文章图片上传API")
+@Api(tags = "文章API")
 @RestController
 @RequestMapping("/article")
 @Slf4j
 public class ImageUploadController {
 
-    @ApiOperation("文章图片-上传")
+    @ApiOperation("文章-上传图片")
     @PostMapping("/img-upload")
     public FileUploadVO imgUpload (@RequestParam("editormd-image-file") MultipartFile file, HttpServletRequest request) {
 

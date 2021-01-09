@@ -3,6 +3,11 @@ server:
 spring:
   application:
     name: pangchun-blog
+  jackson:
+    time-zone: GMT+8
+  mvc:
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     platform: mysql

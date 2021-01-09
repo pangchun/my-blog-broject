@@ -8,6 +8,7 @@ import sun.security.rsa.RSASignature;
 
 import javax.annotation.Resource;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 @SpringBootTest
 class BlogApplicationTests {
@@ -38,5 +39,15 @@ class BlogApplicationTests {
     void contextLoads3() {
 
         System.out.println(blogRepository.findFirstByOrderByPublishTimeDesc().toString());
+    }
+
+    @Test
+    void contextLoads4() {
+        System.out.println(blogRepository.findFirstByPublishTimeBeforeOrderByPublishTimeDesc(new Date()));
+    }
+
+    @Test
+    void contextLoads5() {
+        System.out.println(new Date());
     }
 }
