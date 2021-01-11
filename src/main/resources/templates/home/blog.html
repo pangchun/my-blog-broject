@@ -7,6 +7,7 @@
   <!-- ==========Favicon========== -->
   <link th:href="@{/assets/commons/favicon.ico}" rel="icon" />
   <!-- ==========CSS========== -->
+  <link rel="stylesheet" type="text/css" th:href="@{/assets/sweetalert-1.x/sweetalert.css}"/>
   <link rel="stylesheet" th:href="@{/assets/Editor/examples/css/style.css}" />
   <link rel="stylesheet" th:href="@{/assets/Editor/css/editormd.preview.css}" />
   <link th:href="@{/assets/bootstrap-4.5-dist/css/bootstrap.css}" rel="stylesheet">
@@ -15,6 +16,19 @@
     .editormd-html-preview {
       width: 100%;
       margin: 0 auto;
+    }
+
+    /* 调整样式 */
+    #layout > header, .btns {
+      width: 100%;
+    }
+    .editormd-preview-container, .editormd-html-preview {
+      padding-left: 0px;
+    }
+
+    /* 调整弹出框的左右居中 */
+    .sweet-alert[data-has-confirm-button=false][data-has-cancel-button=false] {
+      left: 788px;
     }
   </style>
 </head>
@@ -26,18 +40,18 @@
   <main role="main" class="container">
     <div class="row">
       <div class="col-md-8 blog-main">
-        <h3 class="pb-4 mb-4 font-italic border-bottom">
+        <h4 class="pb-4 mb-4 font-italic border-bottom">
           最新文章
-        </h3>
+        </h4>
         <!-- 文章主体 -->
         <div class="blog-post">
           <div id="layout">
             <header>
-              <h1 id="title">我的第一篇Blog</h1>
+              <h1 id="title" name="title">我的第一篇Blog</h1>
               <p class="blog-post-meta"><span id="publish-time">2021-1-5</span> by <a href="#">pangchun</a></p>
             </header>
             <div class="btns">
-              <button onclick="location.href='./html-preview-markdown-to-html-custom-toc-container.html';">全屏观看</button>
+              <button onclick="location.href='./html-preview-markdown-to-html-custom-toc-container.html';">全屏阅读</button>
             </div>
             <!--
             <div id="test-editormd-view">
@@ -76,8 +90,8 @@
         </div>
         <!-- 分页 -->
         <nav class="blog-pagination">
-          <a class="btn btn-outline-primary" href="#">Older</a>
-          <a class="btn btn-outline-secondary" href="#" tabindex="-1" aria-disabled="true">Newer</a>
+          <button onclick="doSome.older();return false;" class="btn btn-outline-primary">Older</button>
+          <button onclick="doSome.newer();return false;" class="btn btn-outline-secondary" tabindex="-1" aria-disabled="true">Newer</button>
         </nav>
       </div>
       <aside class="col-md-4 blog-sidebar">
@@ -125,6 +139,7 @@
   <!-- ==========JS========== -->
   <script th:src="@{/assets/jquery-3.5.1/jquery-3.5.1.js}"></script>
   <script th:src="@{/assets/bootstrap-4.5-dist/js/bootstrap.js}"></script>
+  <script th:src="@{/assets/sweetalert-1.x/sweetalert.min.js}" type="text/javascript" charset="utf-8"></script>
   <!-- Editor -->
   <script th:src="@{/assets/Editor/examples/js/jquery.min.js}"></script>
   <script th:src="@{/assets/Editor/lib/marked.min.js}"></script>
@@ -178,6 +193,7 @@
   </script>
 -->
 
+<!--  TODO: 现在的重复代码很多，后面要优化一下-->
   <script>
       /*页面加载完成就获取最新文章*/
       $(function () {
@@ -188,29 +204,119 @@
               contentType:"application/json",
               success: function (result) {
                   console.log(result);
-                  $('#title').html(result.data.title);
-                  $('#publish-time').html(result.data.publishTime);
-                  $('#append-test').html(result.data.content);
+                  if (result.code === 200 && result.message === "Success") {
+                      $('#title').html(result.data.title);
+                      $('#publish-time').html(result.data.publishTime);
+                      $('#append-test').html(result.data.content);
 
-                  doSome.mdToHtml();
+                      doSome.mdToHtml();
+                  }
+                  else {
+                      swal({
+                        title: "提示 !!",
+                        text: result.message + " !!",
+                        timer: 2000,
+                        showConfirmButton: false
+                      });
+                  }
               }
           })
       });
 
       let doSome = {
+          <!-- 下一篇博客 -->
+          newer: function () {
+              $.ajax({
+                  type: "GET",
+                  url: "/blog/newer",
+	              data: {"publishTime": $('#publish-time').text()},
+                  dataType: "json",
+                  contentType:"application/json",
+                  success: function (result) {
+                      console.log(result);
+                      if (result.code === 200 && result.message === "Success") {
+                          $('#title').html(result.data.title);
+                          $('#publish-time').html(result.data.publishTime);
+                          /*
+                           注意：
+                           因为editor.md在渲染时会将textarea去掉，
+                           因此就没有这个节点了，直接取$('#append-test')是取不到的，
+                           因此，我们在为#append-test赋值前，需要先生成textarea节点。
+                          */
+                          $('#test-editormd-view2').html(
+                                  '<textarea id="append-test" style="display:none;"></textarea>'
+                          );
+                          $('#append-test').html(result.data.content);
+
+                          doSome.mdToHtml();
+                          location.href = "#title";//将标题设置为锚点位置
+                      }
+                      else {
+                          swal({
+                            title: "提示 !!",
+                            text: result.message + " !!",
+                            timer: 2000,
+                            showConfirmButton: false
+                          });
+                      }
+                  }
+              })
+          },
+
+          <!-- 上一篇博客 -->
+          older: function () {
+              $.ajax({
+                  type: "GET",
+                  url: "/blog/older",
+                  data: {"publishTime": $('#publish-time').text()},
+                  dataType: "json",
+                  contentType:"application/json",
+                  success: function (result) {
+                      console.log(result);
+                      if (result.code === 200 && result.message === "Success") {
+                          $('#title').html(result.data.title);
+                          $('#publish-time').html(result.data.publishTime);
+                          /*
+                           注意：
+                           因为editor.md在渲染时会将textarea去掉，
+                           因此就没有这个节点了，直接取$('#append-test')是取不到的，
+                           因此，我们在为#append-test赋值前，需要先生成textarea节点。
+                          */
+                          $('#test-editormd-view2').html(
+                                  '<textarea id="append-test" style="display:none;"></textarea>'
+                          );
+                          $('#append-test').html(result.data.content);
+
+                          doSome.mdToHtml();
+                          location.href = "#title";
+                      }
+                      else {
+                          swal({
+                            title: "提示 !!",
+                            text: result.message + " !!",
+                            timer: 2000,
+                            showConfirmButton: false
+                          });
+                      }
+                  }
+              })
+          },
+
           <!-- 封装一个将md源码渲染到页面的方法 -->
           mdToHtml: function () {
               let testEditormdView2;
               testEditormdView2 = editormd.markdownToHTML("test-editormd-view2", {
                   htmlDecode      : "style,script,iframe",
-                  //tocm            : true, // 开启按钮式目录
+                  tocm            : true, // 开启按钮式目录
                   emoji           : true,
                   taskList        : true,
                   tex             : true,
                   flowChart       : true,
                   sequenceDiagram : true,
               });
-          }
+          },
+
+
       }
   </script>
 

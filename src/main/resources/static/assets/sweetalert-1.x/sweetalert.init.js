@@ -1,3 +1,4 @@
+/* 这些是sweetalert的使用示例 */
 document.querySelector('.sweet-wrong').onclick = function(){
     sweetAlert("Oops...", "Something went wrong !!", "error");
 };

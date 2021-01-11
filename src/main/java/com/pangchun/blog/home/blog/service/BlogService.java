@@ -36,16 +36,7 @@ public class BlogService {
         Article article = blogRepository.findFirstByOrderByPublishTimeDesc();
 
         //封装返回值
-        ResponseResult<Article> result = new ResponseResult<>();
-        if (article != null) {
-            result.setCode(200);
-            result.setMessage("Success");
-            result.setData(article);
-        }
-        else {
-            result.setCode(500);
-            result.setMessage("获取文章失败");
-        }
+        ResponseResult<Article> result = Helper.encapsulate(article, "作者很懒，还未发布过文章呢");
 
         return result;
     }
@@ -65,16 +56,7 @@ public class BlogService {
         Article article = blogRepository.findFirstByPublishTimeBeforeOrderByPublishTimeDesc(publishTime);
 
         //封装返回值
-        ResponseResult<Article> result = new ResponseResult<>();
-        if (article != null) {
-            result.setCode(200);
-            result.setMessage("Success");
-            result.setData(article);
-        }
-        else {
-            result.setCode(500);
-            result.setMessage("获取文章失败");
-        }
+        ResponseResult<Article> result = Helper.encapsulate(article, "已经到底啦");
 
         return result;
     }
@@ -94,16 +76,7 @@ public class BlogService {
         Article article = blogRepository.findFirstByPublishTimeAfterOrderByPublishTimeAsc(publishTime);
 
         //封装返回值
-        ResponseResult<Article> result = new ResponseResult<>();
-        if (article != null) {
-            result.setCode(200);
-            result.setMessage("Success");
-            result.setData(article);
-        }
-        else {
-            result.setCode(500);
-            result.setMessage("获取文章失败");
-        }
+        ResponseResult<Article> result = Helper.encapsulate(article, "已经是最新文章啦");
 
         return result;
     }
@@ -119,6 +92,30 @@ public class BlogService {
         public static void checkPublishTimeParam(Date date) {
 
             AssertUtils.notNull(date, BlogExceptionType.NOT_EXIST_ERROR,"请输入发布时间");
+        }
+
+        /**
+         * 封装返回值
+         *
+         * @param article
+         * @param fail_message 文章为空时返回给前端的错误消息
+         * @return
+         */
+        public static ResponseResult<Article> encapsulate(Article article, String fail_message) {
+
+            ResponseResult<Article> result = new ResponseResult<>();
+
+            if (article != null) {
+                result.setCode(200);
+                result.setMessage("Success");
+                result.setData(article);
+            }
+            else {
+                result.setCode(500);
+                result.setMessage(fail_message);
+            }
+
+            return result;
         }
     }
 }
