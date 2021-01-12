@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Blog | ManageArticles</title>
+		<!-- ==========Favicon========== -->
+		<link th:href="@{/assets/commons/favicon.ico}" rel="icon" />
+		<!-- ==========CSS========== -->
+		<link th:href="@{/assets/bootstrap-4.5-dist/css/bootstrap.css}" rel="stylesheet">
+		<link th:href="@{/assets/dashboard/dashboard.css}" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" th:href="@{/assets/sPage/jquery.sPage.css}">
+		<style type="text/css">
+
+			/* sPage */
+			.num{
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+			}
+			.demo{
+				margin-bottom: 20px;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 顶部导航栏通用模块 -->
+		<div th:replace="admin/fragments/admin-frags::navbar"></div>
+
+		<div class="container-fluid">
+			<div class="row">
+				<!-- 左侧导航栏通用模块 -->
+				<div th:replace="admin/fragments/admin-frags::sidebar(activeUri='manageArticles.html')"></div>
+
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+
+					<!-- 主要内容模块 -->
+					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+						<h1 class="h2">文章列表</h1>
+						<div class="btn-toolbar mb-2 mb-md-0">
+							<div class="btn-group mr-2">
+								<button type="button" class="btn btn-sm btn-outline-secondary">导出文章</button>
+								<button type="button" class="btn btn-sm btn-outline-secondary">批量导出</button>
+							</div>
+						</div>
+					</div>
+
+					<!-- 表格 -->
+					<div class="table-responsive">
+						<table class="table table-bordered">
+							<thead>
+							<tr>
+								<th scope="col">主键编号</th>
+								<th scope="col">文章标题</th>
+								<th scope="col">发布时间</th>
+								<th scope="col">文章描述</th>
+								<th scope="col">文章管理</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<th scope="row">1</th>
+								<td>获取System的系统变量</td>
+								<td>2021-01-06 17:27:18</td>
+								<td>这是我的第一篇文章</td>
+								<td>
+									<button type="button" class="btn btn-primary">更新</button>
+									<button type="button" class="btn btn-danger">丢弃</button>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">2</th>
+								<td>去除字符串中的空格</td>
+								<td>2021-01-08 19:29:20</td>
+								<td>这是我的第二篇文章</td>
+								<td>
+									<button type="button" class="btn btn-primary">更新</button>
+									<button type="button" class="btn btn-danger">丢弃</button>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row">3</th>
+								<td>SpringBoot的日期处理</td>
+								<td>2021-01-09 17:03:10</td>
+								<td>在前后端传递Date参数时经常发生错误，因此总结一篇笔记！</td>
+								<td>
+									<button type="button" class="btn btn-primary">更新</button>
+									<button type="button" class="btn btn-danger">丢弃</button>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!-- sPage分页 -->
+					<div id="myPage" class="demo"></div>
+
+				</main>
+			</div>
+		</div>
+
+		<!-- ==========JS========== -->
+		<script th:src="@{/assets/jquery-3.5.1/jquery-3.5.1.js}"></script>
+		<script th:src="@{/assets/bootstrap-4.5-dist/js/bootstrap.js}"></script>
+		<script th:src="@{/assets/commons/js/feather-4.9.0.min.js}"></script>
+		<script th:src="@{/assets/commons/js/Chart-2.7.3.min.js}"></script>
+		<script th:src="@{/assets/dashboard/dashboard.js}"></script>
+		<!--<script th:src="@{/assets/sPage/jquery-2.2.4/jquery.js}"></script>-->
+		<script th:src="@{/assets/sPage/jquery.sPage.js}"></script>
+		<script type="text/javascript">
+			$(function(){
+				// 示例1
+				$("#myPage").sPage({
+					page:1,//当前页码，必填
+					total:888,//数据总条数，必填
+					pageSize:10,//每页显示多少条数据，默认10条
+					showTotal:true,//是否显示总条数，默认关闭：false
+					totalTxt:"共{total}条",//数据总条数文字描述，{total}为占位符，默认"共{total}条"
+					noData: false,//没有数据时是否显示分页，默认false不显示，true显示第一页
+					showSkip:true,//是否显示跳页，默认关闭：false
+					showPN:true,//是否显示上下翻页，默认开启：true
+					prevPage:"上一页",//上翻页文字描述，默认“上一页”
+					nextPage:"下一页",//下翻页文字描述，默认“下一页”
+					fastForward: 5,//快进快退页数，默认0表示不开启快进快退
+					backFun:function(page){
+						//点击分页按钮回调函数，返回当前页码
+						$("#pNum").text(page);
+					}
+				});
+				// 后台数据请求示例
+				//ajaxPage(1);
+			});
+			//结合Ajax使用，仅供参考
+			function ajaxPage(page){
+				var p = page || 1;
+				$.ajax({
+					type: "POST",
+					url: "https://www.test.com/test",
+					data: {
+						page:p,
+						pageSize:10
+					},
+					dataType: "json",
+					success: function(data){
+						//数据处理
+						// ...
+
+						// 调用分页插件
+						$("#myPage").sPage({
+							page:p,//当前页码
+							pageSize:10,//每页显示多少条数据，默认10条
+							total:data.total,//数据总条数,后台返回
+							backFun:function(page){
+								//点击分页按钮回调函数，返回当前页码，返回的是用户点击的按钮的页码
+								ajaxPage(page);
+							}
+						});
+					},
+					error:function(e){
+						console.log(e);
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

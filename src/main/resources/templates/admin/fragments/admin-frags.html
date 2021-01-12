@@ -9,15 +9,15 @@
 
     <!-- 顶部导航栏通用模块 -->
     <nav th:fragment="navbar" class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Blog Admin</a>
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">博客后台-Admin</a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
                 data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-dark w-100" type="text" placeholder="全局搜索" aria-label="Search">
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">Sign out</a>
+                <a class="nav-link" href="#">退 出</a>
             </li>
         </ul>
     </nav>
@@ -29,43 +29,49 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/admin/dashboard}" th:class="${activeUri}=='dashboard.html'?'nav-link active':'nav-link'">
                         <span data-feather="home"></span>
-                        Dashboard <span class="sr-only">(current)</span>
+                        控制面板 <span class="sr-only">(current)</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/admin/editArticles}" th:class="${activeUri}=='editArticles.html'?'nav-link active':'nav-link'">
                         <span data-feather="edit"></span>
-                        Edit
+                        文章编辑
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/admin/manageArticles}" th:class="${activeUri}=='manageArticles.html'?'nav-link active':'nav-link'">
+                        <span data-feather="command"></span>
+                        文章管理
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <span data-feather="archive"></span>
-                        Archive
+                        档案袋子
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <span data-feather="user"></span>
-                        User
+                        主人资料
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <span data-feather="message-square"></span>
-                        Message
+                        信息留言
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <span data-feather="x"></span>
-                        LogOut
+                        退出系统
                     </a>
                 </li>
             </ul>
 
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                <span>Saved reports</span>
+                <span>相关报告</span>
                 <a class="d-flex align-items-center text-muted" href="#" aria-label="Add a new report">
                     <span data-feather="plus-circle"></span>
                 </a>
@@ -74,25 +80,25 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <span data-feather="file-text"></span>
-                        Comments
+                        条目一
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <span data-feather="file-text"></span>
-                        Comments
+                        条目二
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <span data-feather="file-text"></span>
-                        Comments
+                        条目三
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         <span data-feather="file-text"></span>
-                        Comments
+                        条目四
                     </a>
                 </li>
             </ul>
