@@ -1,6 +1,7 @@
 package com.pangchun.blog.admin.article.repository;
 
 import com.pangchun.blog.entity.Article;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

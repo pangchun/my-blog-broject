@@ -31,7 +31,7 @@ public class Article {
     @ApiModelProperty("主键id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer uid;
+    private Integer aid;
 
     /** 文章标题 */
     @ApiModelProperty("文章标题")
