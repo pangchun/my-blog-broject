@@ -58,8 +58,8 @@
 								<th scope="col">文章管理</th>
 							</tr>
 							</thead>
-							<tbody>
-							<tr>
+							<tbody id="tbody">
+							<!--<tr>
 								<th scope="row">1</th>
 								<td>获取System的系统变量</td>
 								<td>2021-01-06 17:27:18</td>
@@ -68,27 +68,7 @@
 									<button type="button" class="btn btn-primary">更新</button>
 									<button type="button" class="btn btn-danger">丢弃</button>
 								</td>
-							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>去除字符串中的空格</td>
-								<td>2021-01-08 19:29:20</td>
-								<td>这是我的第二篇文章</td>
-								<td>
-									<button type="button" class="btn btn-primary">更新</button>
-									<button type="button" class="btn btn-danger">丢弃</button>
-								</td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>SpringBoot的日期处理</td>
-								<td>2021-01-09 17:03:10</td>
-								<td>在前后端传递Date参数时经常发生错误，因此总结一篇笔记！</td>
-								<td>
-									<button type="button" class="btn btn-primary">更新</button>
-									<button type="button" class="btn btn-danger">丢弃</button>
-								</td>
-							</tr>
+							</tr>-->
 							</tbody>
 						</table>
 					</div>
@@ -150,6 +130,20 @@
 						let articleList = result.data;
 						$.each(articleList, function (key, value) {//这里的每个value都是一个article
                             console.log("--Key：" + key + " --主键：" + value.aid + " --标题：" + value.title);
+
+                            //渲染数据至表格
+                            $('#tbody').append(
+                                '<tr>\n' +
+                                '\t\t\t\t\t\t\t\t<th scope="row">'+ value.aid +'</th>\n' +
+                                '\t\t\t\t\t\t\t\t<td>'+ value.title +'</td>\n' +
+                                '\t\t\t\t\t\t\t\t<td>'+ value.publishTime +'</td>\n' +
+                                '\t\t\t\t\t\t\t\t<td>'+ value.description +'</td>\n' +
+                                '\t\t\t\t\t\t\t\t<td>\n' +
+                                '\t\t\t\t\t\t\t\t\t<button type="button" class="btn btn-primary">更新</button>\n' +
+                                '\t\t\t\t\t\t\t\t\t<button type="button" class="btn btn-danger">丢弃</button>\n' +
+                                '\t\t\t\t\t\t\t\t</td>\n' +
+                                '\t\t\t\t\t\t\t</tr>'
+                            )
                         })
 
 
@@ -167,8 +161,9 @@
                             prevPage:"上一页",//上翻页文字描述，默认“上一页”
                             nextPage:"下一页",//下翻页文字描述，默认“下一页”
                             fastForward: 5,//快进快退页数，默认0表示不开启快进快退
+                            //点击分页按钮回调函数，page参数是用户点击的页码数，点击分页即执行ajaxPage(page);方法
 							backFun:function(page){
-								//点击分页按钮回调函数，返回当前页码，返回的是用户点击的按钮的页码
+                                $("#tbody").empty();
 								ajaxPage(page);
 							}
 						});
