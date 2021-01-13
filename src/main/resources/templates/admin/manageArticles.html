@@ -106,7 +106,7 @@
 		<script th:src="@{/assets/commons/js/feather-4.9.0.min.js}"></script>
 		<script th:src="@{/assets/commons/js/Chart-2.7.3.min.js}"></script>
 		<script th:src="@{/assets/dashboard/dashboard.js}"></script>
-		<!--<script th:src="@{/assets/sPage/jquery-2.2.4/jquery.js}"></script>-->
+		<script th:src="@{/assets/sPage/jquery-2.2.4/jquery.js}"></script>
 		<script th:src="@{/assets/sPage/jquery.sPage.js}"></script>
 		<script type="text/javascript">
 			$(function(){
@@ -139,18 +139,34 @@
 					url: "/article/find-all-with-sPage",
 					data: {
 						page:p,
-						pageSize:10
+						pageSize:5
 					},
 					dataType: "json",
 					success: function(result){
 						//数据处理
-						// ...
+						//console.log("List<Article>" + result.data)
+
+						//遍历List<Article>，并渲染到页面上
+						let articleList = result.data;
+						$.each(articleList, function (key, value) {//这里的每个value都是一个article
+                            console.log("--Key：" + key + " --主键：" + value.aid + " --标题：" + value.title);
+                        })
+
 
 						// 调用分页插件
 						$("#myPage").sPage({
 							page:p,//当前页码
-							pageSize:10,//每页显示多少条数据，默认10条
+							pageSize:5,//每页显示多少条数据，默认10条
 							total:result.totalSize,//数据总条数,后台返回
+                            pageSize:result.pageSize,//每页显示多少条数据，默认10条
+                            showTotal:true,//是否显示总条数，默认关闭：false
+                            totalTxt:"共{total}条",//数据总条数文字描述，{total}为占位符，默认"共{total}条"
+                            noData: false,//没有数据时是否显示分页，默认false不显示，true显示第一页
+                            showSkip:true,//是否显示跳页，默认关闭：false
+                            showPN:true,//是否显示上下翻页，默认开启：true
+                            prevPage:"上一页",//上翻页文字描述，默认“上一页”
+                            nextPage:"下一页",//下翻页文字描述，默认“下一页”
+                            fastForward: 5,//快进快退页数，默认0表示不开启快进快退
 							backFun:function(page){
 								//点击分页按钮回调函数，返回当前页码，返回的是用户点击的按钮的页码
 								ajaxPage(page);

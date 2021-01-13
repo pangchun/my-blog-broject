@@ -38,8 +38,8 @@ public class ArticleDaoImpl implements ArticleDao {
         //排序规则
         Sort orders = Sort.by(Sort.Direction.DESC, "aid");
 
-        //分页规则
-        PageRequest pageable = PageRequest.of(page, size, orders);
+        //分页规则 因为JPA是从0页开始查的，所以page-1
+        PageRequest pageable = PageRequest.of(page-1, size, orders);
 
         //分页数据
         Page<Article> articlePage = repository.findAll(pageable);
@@ -59,7 +59,8 @@ public class ArticleDaoImpl implements ArticleDao {
         //封装返回值
         ResponseResult<List<Article>> result = new ResponseResult<>();
         result.setData(articleList);
-        result.setCurrentPage(pageNumber);
+        //因为之前减了1，所以返回pageNumber+1
+        result.setCurrentPage(pageNumber+1);
         result.setPageSize(pageSize);
         result.setTotalPage(totalPages);
         result.setTotalSize(totalElements);
