@@ -59,10 +59,16 @@ public class ArticleController {
 
         log.info("文章aid： " + aid);
 
-        if (aid == null) {
-            aid = -1;
-        }
-
         return articleService.findByAid(aid);
+    }
+
+    @ApiOperation("文章-删除")
+    @DeleteMapping("/delete-by-aid")
+    @ResponseBody
+    public ResponseResult deleteByAid(@RequestParam Integer aid) {
+
+        log.info("文章aid： " + aid);
+
+        return articleService.deleteByAid(aid);
     }
 }
