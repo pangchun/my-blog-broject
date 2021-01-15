@@ -5,7 +5,6 @@ import com.pangchun.blog.admin.article.service.ArticleService;
 import com.pangchun.blog.entity.Article;
 import com.pangchun.blog.support.ResponseResult;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -37,7 +36,7 @@ public class ArticleController {
     @ResponseBody
     public ResponseResult<Article> publish(@RequestBody ArticleDTO articleDTO) {
 
-        log.info(articleDTO.toString());
+        log.info("发布文章： aid=" + articleDTO.getAid() + " title=" + articleDTO.getTitle());
 
         return articleService.publish(articleDTO);
     }
@@ -51,5 +50,19 @@ public class ArticleController {
         log.info("页码参数： " + page + " , 条数参数： " + pageSize);
 
         return articleService.findAllWithsPage(page, pageSize);
+    }
+
+    @ApiOperation("文章-查询")
+    @GetMapping("/find-by-aid")
+    @ResponseBody
+    public ResponseResult<Article> findByAid(@RequestParam Integer aid) {
+
+        log.info("文章aid： " + aid);
+
+        if (aid == null) {
+            aid = -1;
+        }
+
+        return articleService.findByAid(aid);
     }
 }

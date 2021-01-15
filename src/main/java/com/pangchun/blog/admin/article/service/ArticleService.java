@@ -14,7 +14,8 @@ import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
-//TODO: 封装返回值的代码比较冗余，需要抽取一下;
+// TODO: 封装返回值的代码比较冗余，需要抽取一下;
+
 /**
  * 文章service
  *
@@ -25,6 +26,8 @@ import java.util.List;
  */
 @Service
 public class ArticleService {
+
+    private static final String OK = "Success";
 
     @Resource
     ArticleRepository articleRepository;
@@ -42,8 +45,9 @@ public class ArticleService {
         //参数校验
         Helper.checkArticleParam(dto);
 
-        //数据转换
+        //数据转换 TODO：这里的数据转换可以使用MapStruct
         Article article = new Article();
+        article.setAid(dto.getAid());
         article.setTitle(dto.getTitle());
         article.setDescription(dto.getDescription());
         article.setPublishTime(new Date());
@@ -54,15 +58,9 @@ public class ArticleService {
 
         //封装返回值
         ResponseResult<Article> result = new ResponseResult<>();
-        if (savedArticle != null) {
             result.setCode(200);
-            result.setMessage("Success");
+            result.setMessage(OK);
             result.setData(savedArticle);
-        }
-        else {
-            result.setCode(500);
-            result.setMessage("文章发布失败");
-        }
 
         return result;
     }
@@ -88,7 +86,7 @@ public class ArticleService {
         if (!ObjectUtils.isEmpty(resultParam.getData())) {
             result = resultParam;
             result.setCode(200);
-            result.setMessage("Success");
+            result.setMessage(OK);
         }
         else if (resultParam.getTotalSize()>0) {
             result.setCode(500);
@@ -101,6 +99,36 @@ public class ArticleService {
 
         return result;
     }
+
+    /**
+     * 根据id查询指定文章
+     *
+     * @param aid
+     * @return
+     */
+    public ResponseResult<Article> findByAid(Integer aid) {
+
+        //参数校验
+        AssertUtils.notNull(aid, ArticleExceptionType.PARAM_ERROR, "请传入文章aid");
+
+        //获取数据
+        Article article = articleRepository.findArticleByAid(aid);
+
+        //封装返回值
+        ResponseResult<Article> result = new ResponseResult<>();
+        if (article != null) {
+            result.setCode(200);
+            result.setMessage(OK);
+            result.setData(article);
+        }
+        else {
+            result.setCode(500);
+            result.setMessage("没有主键为" + aid + "的文章");
+        }
+
+        return result;
+    }
+
 
     /*辅助类*/
     private static class Helper {

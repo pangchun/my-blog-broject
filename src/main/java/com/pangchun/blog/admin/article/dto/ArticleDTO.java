@@ -18,7 +18,7 @@ public class ArticleDTO {
 
     /** 主键编号 */
     @ApiModelProperty("主键id")
-    private Integer uid;
+    private Integer aid;
 
     /** 文章标题 */
     @ApiModelProperty("文章标题")

@@ -14,4 +14,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface ArticleRepository extends JpaRepository<Article,Integer> {
 
+    /**
+     * 通过aid查询一篇文章
+     *
+     * @param aid
+     * @return
+     */
+    Article findArticleByAid(Integer aid);
+
 }

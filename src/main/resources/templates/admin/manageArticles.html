@@ -88,6 +88,7 @@
 		<script th:src="@{/assets/dashboard/dashboard.js}"></script>
 		<script th:src="@{/assets/sPage/jquery-2.2.4/jquery.js}"></script>
 		<script th:src="@{/assets/sPage/jquery.sPage.js}"></script>
+		<script th:src="@{/assets/jquery-cookie/jquery.cookie.js}"></script>
 		<script type="text/javascript">
 			$(function(){
 				// 示例1
@@ -111,6 +112,7 @@
 				// 后台数据请求示例, 首次进入页面默认请求第一页;
 				ajaxPage(1);
 			});
+
 			//结合Ajax使用，仅供参考
 			function ajaxPage(page){
 				var p = page || 1;
@@ -138,8 +140,8 @@
                                 '<td>'+ value.title +'</td>\n' +
                                 '<td>'+ value.publishTime +'</td>\n' +
                                 '<td>'+ value.description +'</td>\n' +
-                                '<td>\n' +
-                                '<button type="button" class="btn btn-primary">更新</button>\n' +
+                                '<td>\n' + //引号转义问题,以及js引号中使用变量
+                                '<button onclick="doSome.setCookie(\'article_aid\','+value.aid+')" type="button" class="btn btn-primary">更新</button>\n' +
                                 '<button type="button" class="btn btn-danger">丢弃</button>\n' +
                                 '</td>\n' +
                                 '</tr>'
@@ -150,9 +152,9 @@
 						// 调用分页插件
 						$("#myPage").sPage({
 							page:p,//当前页码
-							pageSize:5,//每页显示多少条数据，默认10条
-							total:result.totalSize,//数据总条数,后台返回
+							//pageSize:5,//每页显示多少条数据，默认10条
                             pageSize:result.pageSize,//每页显示多少条数据，默认10条
+							total:result.totalSize,//数据总条数,后台返回
                             showTotal:true,//是否显示总条数，默认关闭：false
                             totalTxt:"共{total}条",//数据总条数文字描述，{total}为占位符，默认"共{total}条"
                             noData: false,//没有数据时是否显示分页，默认false不显示，true显示第一页
@@ -173,6 +175,19 @@
 					}
 				});
 			}
+
+            let doSome = {
+
+                <!-- 设置Cookie并跳转页面 -->
+                setCookie: function (cookieName, cookieValue) {
+                    //设置Cookie
+                    $.cookie(cookieName, cookieValue)
+	                //打印Cookie
+                    console.log(cookieName, $.cookie(cookieName))
+	                //页面跳转
+                    window.location.href="/admin/editArticles";
+                }
+            };
 		</script>
 	</body>
 

@@ -30,7 +30,7 @@
                         <div class="btn-toolbar mb-2 mb-md-0">
                             <div class="btn-group mr-2">
                                 <button type="button" class="btn btn-sm btn-outline-secondary" onclick="editArticles.doSave();">存为草稿</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="editArticles.doSubmit();">立即发布</button>
+                                <button id="publish" type="button" class="btn btn-sm btn-outline-secondary" onclick="editArticles.doSubmit();">立即发布</button>
                             </div>
                         </div>
                     </div>
@@ -42,6 +42,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">标题</span>
                                 </div>
+                                <input id="aid" type="text" class="form-control" placeholder="主键aid" hidden>
                                 <input id="title" type="text" class="form-control" placeholder="输入您的文章标题!!">
                             </div>
                             <div class="input-group">
@@ -70,7 +71,6 @@
         </div>
 
         <!-- ==========JS========== -->
-        <!-- ==========JS========== -->
         <script th:src="@{/assets/jquery-3.5.1/jquery-3.5.1.js}"></script>
         <script th:src="@{/assets/sweetalert-1.x/sweetalert.min.js}"></script>
         <script th:src="@{/assets/jquery-serializejson/jquery.serializejson.js}"></script>
@@ -82,10 +82,13 @@
         <!-- Editor -->
         <script th:src="@{/assets/Editor/examples/js/jquery.min.js}"></script>
         <script th:src="@{/assets/Editor/editormd.js}"></script>
+        <script th:src="@{/assets/jquery-cookie/jquery.cookie.js}"></script>
         <script type="text/javascript">
             var testEditor;
 
             $(function() {
+                //回显文章
+                editArticles.doUpdateEcho()
                 testEditor = editormd("test-editormd", {
                     width   : "100%",
                     height  : 680,
@@ -138,7 +141,8 @@
             let editArticles = {
                 //立即发布
                 doSubmit: function () {
-                    if (editArticles.doCheck()) {
+                        if (editArticles.doCheck()) {
+                        let aid = $("#aid").val();
                         let title = $("#title").val();
                         let description = $("#description").val();
                         let content = $("#content").val();
@@ -146,7 +150,7 @@
                             type: "POST",
                             url: "/article/publish",
                             //注意：title、description、content都是对象，要使用JSON.stringify转为JSON字符串；
-                            data: JSON.stringify({'title': title, 'description': description, 'content': content}),
+                            data: JSON.stringify({'aid': aid, 'title': title, 'description': description, 'content': content}),
                             dataType: "json",
                             contentType: "application/json",
                             success: function (result) {
@@ -195,6 +199,37 @@
                         return false;
                     }
                     return true;
+                },
+
+                //更新文章回显
+                doUpdateEcho: function () {
+                    let article_aid = $.cookie('article_aid');
+                    console.log('article_aid: ' + article_aid)
+                    if (article_aid != null && article_aid !== '') {
+                        $.ajax({
+                            type: "GET",
+                            data: {"aid": article_aid},
+                            url : "/article/find-by-aid",
+                            dataType: "json",
+                            contentType: "application/json",
+                            success: function (result) {
+                                console.log(result);
+                                if (result.code === 200 && result.message === "Success") {
+                                    $('#aid').val(result.data.aid);
+                                    $('#title').val(result.data.title);
+                                    $('#description').val(result.data.description);
+                                    $('#content').val(result.data.content);
+                                    $('#publish').html("立即更新");
+                                    //回显成功后马上清除Cookie, 这样切换选项后不会二次回显;
+                                    $.removeCookie("article_aid");
+                                } else {
+                                    sweetAlert("提示", result.message + " !!", "error");
+                                }
+                            }
+                        })
+                    } else {
+                        console.log("Cookie为空！！不回显文章")
+                    }
                 }
             }
 
