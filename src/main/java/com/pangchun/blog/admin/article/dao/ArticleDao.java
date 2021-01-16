@@ -17,7 +17,7 @@ import java.util.List;
 public interface ArticleDao {
 
     /**
-     * 分页查询所有文章，排序是实现类默认的主键id降序
+     * 分页查询所有文章，排序是实现类默认的发布时间降序
      *
      * @param page
      * @param size

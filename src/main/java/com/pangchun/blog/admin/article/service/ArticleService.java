@@ -129,7 +129,7 @@ public class ArticleService {
         return result;
     }
 
-    public ResponseResult deleteByAid(Integer aid) {
+    public ResponseResult<String> deleteByAid(Integer aid) {
 
         //参数校验
         AssertUtils.notNull(aid, ArticleExceptionType.PARAM_ERROR, "请传入文章aid");
@@ -138,7 +138,7 @@ public class ArticleService {
         articleRepository.deleteArticleByAid(aid);
 
         //封装返回值
-        ResponseResult result = new ResponseResult<>();
+        ResponseResult<String> result = new ResponseResult<>();
         result.setCode(200);
         result.setMessage("删除成功");
 

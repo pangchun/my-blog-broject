@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.List;
 
-//TODO：文章发布可以通过添加文章到数据库，添加发布时间字段，通过取出发布时间最新的文章显示到前端页面即可;
 /**
  * 文章API
  *
@@ -41,12 +40,12 @@ public class ArticleController {
         return articleService.publish(articleDTO);
     }
 
+    /** 特别注意：jpa的分页查询是从0页开始查的, page参数最小值为0; */
     @ApiOperation("文章-分页")
     @PostMapping("/find-all-with-sPage")
     @ResponseBody
     public ResponseResult<List<Article>> findAllWithsPage(int page, int pageSize) {
 
-        //特别注意：jpa的分页查询是从0页开始查的, page参数最小值为0;
         log.info("页码参数： " + page + " , 条数参数： " + pageSize);
 
         return articleService.findAllWithsPage(page, pageSize);
@@ -65,7 +64,7 @@ public class ArticleController {
     @ApiOperation("文章-删除")
     @DeleteMapping("/delete-by-aid")
     @ResponseBody
-    public ResponseResult deleteByAid(@RequestParam Integer aid) {
+    public ResponseResult<String> deleteByAid(@RequestParam Integer aid) {
 
         log.info("文章aid： " + aid);
 

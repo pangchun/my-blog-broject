@@ -36,7 +36,7 @@ public class ArticleDaoImpl implements ArticleDao {
     public ResponseResult<List<Article>> findAllWithsPage(int page, int size) {
 
         //排序规则
-        Sort orders = Sort.by(Sort.Direction.DESC, "aid");
+        Sort orders = Sort.by(Sort.Direction.DESC, "publishTime");
 
         //分页规则 因为JPA是从0页开始查的，所以page-1
         PageRequest pageable = PageRequest.of(page-1, size, orders);

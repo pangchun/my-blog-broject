@@ -10,6 +10,7 @@
 		<link th:href="@{/assets/bootstrap-4.5-dist/css/bootstrap.css}" rel="stylesheet">
 		<link th:href="@{/assets/dashboard/dashboard.css}" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" th:href="@{/assets/sPage/jquery.sPage.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/assets/sweetalert-1.x/sweetalert.css}"/>
 		<style type="text/css">
 
 			/* sPage */
@@ -89,6 +90,7 @@
 		<script th:src="@{/assets/sPage/jquery-2.2.4/jquery.js}"></script>
 		<script th:src="@{/assets/sPage/jquery.sPage.js}"></script>
 		<script th:src="@{/assets/jquery-cookie/jquery.cookie.js}"></script>
+		<script th:src="@{/assets/sweetalert-1.x/sweetalert.min.js}" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(function(){
 				// 示例1
@@ -135,14 +137,14 @@
 
                             //渲染数据至表格
                             $('#tbody').append(
-                                '<tr>\n' +
+                                '<tr id="article_'+ value.aid +'">\n' + //拼接id，以便通过id选取元素
                                 '<th scope="row">'+ value.aid +'</th>\n' +
                                 '<td>'+ value.title +'</td>\n' +
                                 '<td>'+ value.publishTime +'</td>\n' +
                                 '<td>'+ value.description +'</td>\n' +
                                 '<td>\n' + //引号转义问题,以及js引号中使用变量
                                 '<button onclick="doSome.setCookie(\'article_aid\','+value.aid+')" type="button" class="btn btn-primary">更新</button>\n' +
-                                '<button type="button" class="btn btn-danger">丢弃</button>\n' +
+                                '<button onclick="doSome.doDelete('+value.aid+')" type="button" class="btn btn-danger">丢弃</button>\n' +
                                 '</td>\n' +
                                 '</tr>'
                             )
@@ -186,6 +188,42 @@
                     console.log(cookieName, $.cookie(cookieName))
 	                //页面跳转
                     window.location.href="/admin/editArticles";
+                },
+
+                <!-- 删除记录并在页面上隐藏该条记录 -->
+	            doDelete: function (aid) {
+                    console.log("删除文章aid： " + aid)
+                    swal({
+                            title: "确认删除 ?",
+                            text: "您将无法恢复该文章 !!",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "是的，我要删除 !!",
+                            cancelButtonText: "不，我再想想 !!",
+                            closeOnConfirm: false,
+                            closeOnCancel: false
+                        },
+                        function(isConfirm){
+                            if (isConfirm) {
+                                $.ajax({
+	                                type: "DELETE",
+	                                url : "/article/delete-by-aid",
+	                                data: {"aid": aid},
+	                                dataType: "json",
+	                                //contentType: "application/json", 这个不能加,因为后台用的是@RequestParam注解接收参数
+	                                success: function(result) {
+                                        if (result.code === 200)
+                                            //通过js移除该条记录
+                                            $("#article_"+aid).hide();
+                                            swal("成功删除 !!", "您的文章已经删除 !!", "success");
+	                                }
+                                })
+                            }
+                            else {
+                                swal("取消删除 !!", "您的文章仍然保留 !!", "error");
+                            }
+                        });
                 }
             };
 		</script>

@@ -211,7 +211,7 @@
                             data: {"aid": article_aid},
                             url : "/article/find-by-aid",
                             dataType: "json",
-                            contentType: "application/json",
+                            //contentType: "application/json", 这个不能加,因为后台用的是@RequestParam注解接收参数
                             success: function (result) {
                                 console.log(result);
                                 if (result.code === 200 && result.message === "Success") {
