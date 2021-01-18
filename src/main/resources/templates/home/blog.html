@@ -39,7 +39,7 @@
   <!-- center -->
   <main role="main" class="container">
     <div class="row">
-      <div class="col-md-8 blog-main">
+      <div class="col-md-9 blog-main">
         <h4 class="pb-4 mb-4 font-italic border-bottom">
           最新文章
         </h4>
@@ -50,9 +50,11 @@
               <h1 id="title" name="title">我的第一篇Blog</h1>
               <p class="blog-post-meta"><span id="publish-time">2021-1-5</span> by <a href="#">pangchun</a></p>
             </header>
+            <!--
             <div class="btns">
               <button onclick="location.href='./html-preview-markdown-to-html-custom-toc-container.html';">全屏阅读</button>
             </div>
+            -->
             <!--
             <div id="test-editormd-view">
               <textarea style="display:none;" name="test-editormd-markdown-doc">###Hello world!</textarea>
@@ -89,12 +91,13 @@
           </div>
         </div>
         <!-- 分页 -->
-        <nav class="blog-pagination">
-          <button onclick="doSome.older();return false;" class="btn btn-outline-primary">Older</button>
-          <button onclick="doSome.newer();return false;" class="btn btn-outline-secondary" tabindex="-1" aria-disabled="true">Newer</button>
+        <nav class="blog-pagination" style="float: right">
+          <button onclick="doSome.older();return false;" class="btn btn-outline-primary">上一页</button>
+          <button onclick="doSome.newer();return false;" class="btn btn-outline-secondary" tabindex="-1" aria-disabled="true">下一页</button>
         </nav>
       </div>
-      <aside class="col-md-4 blog-sidebar">
+      <aside class="col-md-3 blog-sidebar">
+        <!--
         <div class="p-4 mb-3 bg-light rounded">
           <h4 class="font-italic">公告栏</h4>
           <p class="mb-0">pangchun <em>我的github账户名</em> 一个热学dog.
@@ -104,10 +107,11 @@
           </p>
           <a href="#"><em>pangchun_mail@qq.com</em></a>
         </div>
-
+        -->
         <div class="p-4">
           <h4 class="font-italic">标签</h4>
           <ol class="list-unstyled mb-0">
+            <li><a href="#">全部</a></li>
             <li><a href="#">Java</a></li>
             <li><a href="#">Spring</a></li>
             <li><a href="#">SpringBoot</a></li>

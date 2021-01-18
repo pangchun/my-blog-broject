@@ -2,7 +2,6 @@ package com.pangchun.blog.admin.article.dao;
 
 import com.pangchun.blog.entity.Article;
 import com.pangchun.blog.support.ResponseResult;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
