@@ -37,6 +37,7 @@ public class ImageUploadController {
         //获取文件名
         String filename = file.getOriginalFilename();
         //文件类型后缀
+        assert filename != null;
         String suffix = filename.substring(filename.lastIndexOf(".") + 1);
         //重命名文件
         String nickname = System.currentTimeMillis() + "." + suffix;

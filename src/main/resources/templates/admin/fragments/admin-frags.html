@@ -39,9 +39,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/admin/manageArticles}" th:class="${activeUri}=='manageArticles.html'?'nav-link active':'nav-link'">
+                    <a class="nav-link" th:href="@{/admin/manageArticles}" th:class="${activeUri}=='manageArticles.html'?'nav-link active':'nav-link'">
                         <span data-feather="command"></span>
                         文章管理
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/manageTags}" th:class="${activeUri}=='manageTags.html'?'nav-link active':'nav-link'">
+                        <span data-feather="tag"></span>
+                        标签分类
                     </a>
                 </li>
                 <li class="nav-item">

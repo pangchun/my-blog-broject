@@ -44,3 +44,10 @@ public class MvcConfiguration implements WebMvcConfigurer {
                 .addResourceLocations("file:" + path);
     }
 }
+
+/*
+* 参考链接： https://blog.csdn.net/qq_36845328/article/details/84782967?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.baidujs&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.baidujs
+*
+* addResourceHandler()里配置需要映射的文件夹，此处代表映射文件夹user下的所有资源。
+* addResourceLocations()配置文件夹在系统中的路径，使用绝对路径，格式为“file:你的路径”
+* */
